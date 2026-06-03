@@ -1,0 +1,30 @@
+tr img.user-image,  img.user-image, img.image-icon {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+}
+img.user-image{
+	height: 250px;
+	width: 250px;
+	object-fit: cover;
+}
+img.image-upload{
+	height: 150px;
+	width: 150px;
+	object-fit: cover;
+}
+
+#userActions{
+	border: 2px dashed;
+}
+#imgPrime{cursor: pointer;}
+
+.admin_login{
+	margin-left: 90px;
+    margin-top: -91px;
+
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

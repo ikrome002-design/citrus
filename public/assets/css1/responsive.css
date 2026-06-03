@@ -1,0 +1,101 @@
+@media (max-width: 1169px){
+	.discovered-content {
+	    max-width: 100%;margin-left: 0;
+	}
+	.discovered-content ul:before {
+	    height: calc(100% - 56px);
+	}
+}
+@media (max-width: 991px){
+	header button.navbar-toggler {
+	    border: 0;
+	}
+	ul.navbar-nav {
+    padding-top: 25px;
+}
+	.container {
+    	max-width: 95%;
+	}
+	.slide-content h2 {	    
+	    font-size: 36px; line-height: 47px;
+	}
+	.slide-content h3 {	    
+	    font-size: 28px;	    
+	}
+	.blog-box .card {
+		margin-bottom: 35px;
+	}
+	.font-45,.blue-heading {
+    	font-size: 32px;
+	}
+	.readyBox-text {
+	    max-width: 100%;padding-right: 35px;
+	}
+	.contactMap:before {	    	    
+	    top: -8px;left: 50%; 
+	    transform: translateX(-50%) rotate(90deg);	    	    	    
+	}
+	.contactMap {
+	    min-height: 350px;
+	}
+	footer.siteFooter {	    
+	    padding: 4px 0 30px 0;	    
+	}
+	footer.siteFooter:before{
+		display: none;
+	}
+	.siteFlogo {
+    	margin-bottom: 65px;
+	}
+	.footerQuestion{
+		margin-left: 0;
+	}
+}
+@media (max-width: 767px){
+	.slide-img {
+	    margin-top: 60px;
+	}
+	.readyBox:before{display: none;}
+		#readyBox .blue-bt {
+	    margin-top: 27px;
+	}
+	.readyBox-text{
+		text-align: center; padding: 0;
+	}
+	.discovered-content {
+	    margin-top: 45px;
+	}
+	.service-box {
+	    margin: 60px 0 80px;
+	}
+	#serviceBox .custom-p {
+	    margin-bottom: 30px;
+	}
+	.service-box .row:nth-child(even) {
+	    flex-direction: column-reverse;
+	}
+	.service-box .row:nth-child(even) ul{
+		padding-bottom: 30px;
+	}
+	.contact-tileBox {
+	    width: 100%;margin-bottom: 22px;
+	}
+	.contactBox-text form {
+	    margin-top: 10px;
+	}
+	.contactBox-text {	    
+	    padding: 35px 15px;
+	}
+	.contactBox {
+	    margin: 120px 0 60px;
+	}
+	.siteFlogo {
+	    margin-bottom: 45px;
+	}
+	.footerQuestion {	    
+	    width: 100%;margin-top: 35px;
+	}
+	.banner{padding: 50px 0;}
+
+
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+  <g id="right_pagination_icon" transform="translate(-569 -4244)">
+    <g id="Ellipse_13" data-name="Ellipse 13" transform="translate(569 4244)" fill="#fff" stroke="#b5b5b5" stroke-width="1">
+      <circle cx="18" cy="18" r="18" stroke="none"/>
+      <circle cx="18" cy="18" r="17.5" fill="none"/>
+    </g>
+    <path id="Icon_feather-chevron-right" data-name="Icon feather-chevron-right" d="M13.5,21.571l6.286-6.286L13.5,9" transform="translate(570.529 4246.715)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  </g>
+</svg>
