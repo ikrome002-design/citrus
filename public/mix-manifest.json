@@ -1,0 +1,17 @@
+{
+    "/css/vendor.min.css": "/css/vendor.min.css",
+    "/css/admin-custom.css": "/css/admin-custom.css",
+    "/css/ionicons.min.css.map": "/css/ionicons.min.css.map",
+    "/css/bootstrap.min.css.map": "/css/bootstrap.min.css.map",
+    "/js/vendor.min.js": "/js/vendor.min.js",
+    "/js/ckeditor.min.js": "/js/ckeditor.min.js",
+    "/js/Chart.min.js": "/js/Chart.min.js",
+    "/js/admin-scripts.js": "/js/admin-scripts.js",
+    "/js/bootstrap.bundle.min.js.map": "/js/bootstrap.bundle.min.js.map",
+    "/js/ckeditor.js.map": "/js/ckeditor.js.map",
+    "/css/style.min.css": "/css/style.min.css",
+    "/css/responsive.css": "/css/responsive.css",
+    "/js/front.min.js": "/js/front.min.js",
+    "/js/scripts.js": "/js/scripts.js",
+    "/js/custom.js": "/js/custom.js"
+}
