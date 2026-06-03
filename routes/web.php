@@ -241,7 +241,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
                 Route::resource('customers.addresses', 'CustomerAddressController');
             });
 
-            Route::namespace('Subscription plan')->group(function () {
+            Route::namespace('Subscriptions')->group(function () {
                 Route::resource('subscription', 'SubscriptionController');
             });
 
@@ -274,7 +274,7 @@ Route::namespace('Auth')->group(function () {
 
     Route::get('cart/login', 'CartLoginController@showLoginForm')->name('cart.login');
     Route::post('cart/login', 'CartLoginController@login')->name('cart.login');
-    Route::post('product/add_review', 'ProductController@add_review')->name('product.review');
+    Route::post('product/add_review', '\App\Http\Controllers\Front\ProductController@add_review')->name('product.review');
     Route::get('logout', 'LoginController@logout');
     Route::get('emailVerifyByUser/{Id}', 'RegisterController@emailVerifyByUser')->name('register.emailVerifyByUser');
     Route::post('ResetPasswordUser', 'LoginController@ResetPasswordUser')->name('ResetPasswordUser');

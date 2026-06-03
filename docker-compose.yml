@@ -8,9 +8,13 @@ services:
     environment:
       SERVICE_NAME: app-api
       SERVICE_TAGS: dev
+      DB_HOST: db
+      DB_DATABASE: citrus_v0
+      DB_USERNAME: root
+      DB_PASSWORD: ""
     working_dir: /var/www
     volumes:
-      - ./project:/var/www
+      - ./:/var/www
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - app-network
@@ -22,7 +26,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./project:/var/www
+      - ./:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
@@ -34,9 +38,8 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: homestead
-      MYSQL_USER: homestead
-      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: citrus_v0
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:

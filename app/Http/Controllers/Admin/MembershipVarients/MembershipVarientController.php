@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\MembershipVarients;
 
-use App\Shop\MembershipVarients\Repositories\Interfaces\MembershipVarientRepositoryInterface;
+use App\Shop\MembershipVarients\Repositories\MembershipVarientRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Shop\MembershipVarients\Repositories\MembershipVarientRepository;
 use Illuminate\Http\Request;

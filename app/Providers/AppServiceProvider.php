@@ -24,19 +24,27 @@ class AppServiceProvider extends ServiceProvider
 
             Cashier::useCurrency(config('cart.currency'), config('cart.currency_symbol'));
 
-     
+            $all_brands = '';
+            $all_vendors = '';
+            $my_account = '';
+            $let_us = '';
+            $other_link = '';
+            $all_categories = '';
+            $all_categories_search = '';
+            $parent_categories = '';
+            $child_categories = '';
+            $parent_categories_sidebar = '';
+            $parent_child_cat[]= array('id' => '', 'name' => '', 'slug' =>'');
+
+        try {
             if (Schema::hasTable('brands')) {
                 // Code to create table
                 $all_brands = DB::table('brands')->get();
-            }else{
-                 $all_brands='';
             }
 
             if (Schema::hasTable('vendors')) {
                 // Code to create table
                 $all_vendors = DB::table('vendors')->where('status', 1)->get();
-            }else{
-                 $all_vendors='';
             }
 
             // for the footer table in 
@@ -44,10 +52,6 @@ class AppServiceProvider extends ServiceProvider
                 $my_account = DB::table('footers')->where('type', 0)->get();
                 $let_us = DB::table('footers')->where('type', 1)->get();
                 $other_link = DB::table('footers')->where('type', 2)->get();
-            }else{
-                 $my_account='';
-                 $let_us='';
-                 $other_link='';
             }
 
             if (Schema::hasTable('categories')) {
@@ -70,16 +74,12 @@ class AppServiceProvider extends ServiceProvider
 
 
 
-            }else{
-                 $all_categories='';
-                 $all_categories_search='';
-                 $parent_categories='';
-                 $child_categories='';
-                 $parent_categories_sidebar='';
             }
             
-            $parent_child_cat[]= array('id' => '', 'name' => '', 'slug' =>'');
             $subchild_cat= $this->findChildCat($parent_categories, $parent_child_cat);
+        } catch (\Throwable $e) {
+            // Local archived installs may not have a database yet; keep Artisan bootable.
+        }
 
             // for($i=0; $i < count($subchild_cat) ; $i++){
                
