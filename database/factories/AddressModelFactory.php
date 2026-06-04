@@ -19,6 +19,7 @@ $factory->define(Address::class, function (Faker\Generator $faker) {
 
     $customer = factory(Customer::class)->create();
     return [
+        'address_type' => 'billing',
         'alias' => $faker->word,
         'address_1' => $faker->streetAddress,
         'address_2' => null,

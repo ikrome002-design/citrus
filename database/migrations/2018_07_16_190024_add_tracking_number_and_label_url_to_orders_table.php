@@ -28,7 +28,15 @@ class AddTrackingNumberAndLabelUrlToOrdersTable extends Migration
     public function down()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn(['label_url', 'tracking_number', 'courier']);
+            $table->dropColumn('label_url');
+        });
+
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropColumn('tracking_number');
+        });
+
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropColumn('courier');
         });
     }
 }

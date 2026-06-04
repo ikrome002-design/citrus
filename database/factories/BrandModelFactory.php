@@ -16,8 +16,10 @@
 use App\Shop\Brands\Brand;
 
 $factory->define(Brand::class, function (Faker\Generator $faker) {
+    $name = $faker->unique()->company;
 
     return [
-        'name' => $faker->company,
+        'name' => $name,
+        'slug' => str_slug($name),
     ];
 });

@@ -27,7 +27,7 @@ class AddPhoneToCustomersTable extends Migration
     public function down()
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->dropColumn(['phone']);
+            $table->dropColumn('phone_number');
             //
         });
     }

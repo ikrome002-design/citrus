@@ -29,12 +29,19 @@ class AddFieldsOnOrderProductTable extends Migration
     public function down()
     {
         Schema::table('order_product', function (Blueprint $table) {
-            $table->dropColumn([
-                'product_name',
-                'product_sku',
-                'product_description',
-                'product_price'
-            ]);
+            $table->dropColumn('product_name');
+        });
+
+        Schema::table('order_product', function (Blueprint $table) {
+            $table->dropColumn('product_sku');
+        });
+
+        Schema::table('order_product', function (Blueprint $table) {
+            $table->dropColumn('product_description');
+        });
+
+        Schema::table('order_product', function (Blueprint $table) {
+            $table->dropColumn('product_price');
         });
     }
 }

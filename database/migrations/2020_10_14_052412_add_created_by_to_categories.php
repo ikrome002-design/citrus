@@ -34,8 +34,11 @@ class AddCreatedByToCategories extends Migration
     public function down()
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->dropColumn(['created_by']);
-            $table->dropColumn(['updated_by']);
+            $table->dropColumn('created_by');
+        });
+
+        Schema::table('categories', function (Blueprint $table) {
+            $table->dropColumn('updated_by');
         });
     }
 }

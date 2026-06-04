@@ -18,8 +18,9 @@
     "jquery": "^3.3.1",
     "laravel-mix": "^6.0.18",
     "lodash": "^4.17.5",
+    "postcss": "8.2.15",
     "vue": "^2.5.13",
-    "webpack": "^5.11.0",
+    "webpack": "5.61.0",
     "webpack-cli": "^4.2.0"
   },
   "dependencies": {

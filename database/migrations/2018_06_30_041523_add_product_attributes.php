@@ -31,7 +31,27 @@ class AddProductAttributes extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn(['length', 'width', 'height', 'distance_unit', 'weight', 'mass_unit']);
+            $table->dropColumn('length');
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('width');
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('height');
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('distance_unit');
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('weight');
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('mass_unit');
         });
     }
 }

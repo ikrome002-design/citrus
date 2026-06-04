@@ -43,13 +43,31 @@ class AddExtraFieldsToProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn(['product_type']);
-            $table->dropColumn(['taxable']);
-            $table->dropColumn(['flat_rate']);
-            $table->dropColumn(['flat_amount']);
-            $table->dropColumn(['vendor_id']);
-            $table->dropColumn(['created_by']);
-            $table->dropColumn(['updated_by']);
+            $table->dropColumn('product_type');
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('taxable');
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('flat_rate');
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('flat_amount');
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('vendor_id');
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('created_by');
+        });
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('updated_by');
         });
     }
 }

@@ -1,4 +1,11 @@
 let mix = require('laravel-mix');
+
+mix.webpackConfig({
+    output: {
+        hashFunction: 'sha256'
+    }
+});
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management

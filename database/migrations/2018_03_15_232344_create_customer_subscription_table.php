@@ -41,13 +41,21 @@ class CreateCustomerSubscriptionTable extends Migration
     public function down()
     {
         Schema::dropIfExists('subscriptions');
+
         Schema::table('customers', function (Blueprint $table) {
-            $table->dropColumn([
-                'stripe_id',
-                'card_brand',
-                'card_last_four',
-                'trial_ends_at'
-            ]);
+            $table->dropColumn('stripe_id');
+        });
+
+        Schema::table('customers', function (Blueprint $table) {
+            $table->dropColumn('card_brand');
+        });
+
+        Schema::table('customers', function (Blueprint $table) {
+            $table->dropColumn('card_last_four');
+        });
+
+        Schema::table('customers', function (Blueprint $table) {
+            $table->dropColumn('trial_ends_at');
         });
     }
 }

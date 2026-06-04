@@ -16,5 +16,14 @@ use App\Shop\Categories\Category;
 use Illuminate\Http\UploadedFile;
 
 $factory->define(Category::class, function (Faker\Generator $faker) {
+    $name = $faker->unique()->words(2, true);
 
+    return [
+        'name' => $name,
+        'slug' => str_slug($name),
+        'description' => $faker->paragraph,
+        'cover' => null,
+        'status' => 1,
+        'is_visible_main' => 1
+    ];
 });

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class MailController extends Controller {
     
     public function sendEmail() {
-        $email = 'sonalikaushal09@gmail.com';
+        $email = env('MAIL_DEMO_TO', config('mail.from.address'));
    
         $mailData = [
             'title' => 'Demo Email',
