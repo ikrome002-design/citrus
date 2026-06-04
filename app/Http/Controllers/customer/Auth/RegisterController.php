@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Customer\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -31,8 +31,8 @@ class RegisterController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-
         event(new Registered($user));
+
         return to_route('login.get')->with('success', 'Registered successfully! Please click the link sent to your email to verify your email before you login.');
     }
 }

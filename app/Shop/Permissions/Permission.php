@@ -2,13 +2,13 @@
 
 namespace App\Shop\Permissions;
 
-use Laratrust\Models\LaratrustPermission;
+use Laratrust\Models\Permission as LaratrustPermission;
 
 class Permission extends LaratrustPermission
 {
     protected $fillable = [
         'name',
         'display_name',
-        'description'
+        'description',
     ];
 }

@@ -1,4 +1,4 @@
-c<?php
+<?php
 
 namespace App\Http\Controllers\Front\Addresses;
 
@@ -12,8 +12,6 @@ class CountryStateController extends Controller
 
     /**
      * CountryStateController constructor.
-     *
-     * @param CountryRepositoryInterface $countryRepository
      */
     public function __construct(CountryRepositoryInterface $countryRepository)
     {
@@ -21,8 +19,6 @@ class CountryStateController extends Controller
     }
 
     /**
-     * @param $countryId
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function index($countryId)

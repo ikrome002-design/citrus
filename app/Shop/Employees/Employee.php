@@ -3,13 +3,13 @@
 namespace App\Shop\Employees;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laratrust\Traits\LaratrustUserTrait;
+use Illuminate\Notifications\Notifiable;
+use Laratrust\Traits\HasRolesAndPermissions;
 
 class Employee extends Authenticatable
 {
-    use Notifiable, SoftDeletes, LaratrustUserTrait;
+    use Notifiable, SoftDeletes, HasRolesAndPermissions;
 
     /**
      * The attributes that are mass assignable.
@@ -28,7 +28,7 @@ class Employee extends Authenticatable
         'citrus_merchant_id',
         'merchant_id',
         'role',
-        'shop_id'
+        'shop_id',
     ];
 
     /**

@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -45,29 +47,25 @@ class RouteServiceProvider extends ServiceProvider
         //
     }
 
-
     //admin
 
     protected function mapAdminRoutes()
     {
-        Route::domain('admin.' . env('APP_DOMAIN'))
+        Route::domain('admin.'.env('APP_DOMAIN'))
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/admin.php'));
     }
 
-
     //merchant
 
     protected function mapMerchantRoutes()
     {
-        Route::domain('business.' . env('APP_DOMAIN'))
+        Route::domain('business.'.env('APP_DOMAIN'))
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/merchant.php'));
     }
-
-
 
     /**
      * Define the "api" routes for the application.
@@ -78,7 +76,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
-        Route::domain('api' . env('APP_DOMAIN'))
+        Route::domain('api'.env('APP_DOMAIN'))
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));

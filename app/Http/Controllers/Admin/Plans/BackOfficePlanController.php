@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BackOfficePlan;
 use Illuminate\Http\Request;
 
-class BackOfficePlanControlller extends Controller
+class BackOfficePlanController extends Controller
 {
     /**
      * Display a listing of the resource.

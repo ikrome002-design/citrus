@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\TeamLinkPlan;
 use Illuminate\Http\Request;
 
-class TeamLinkPlanControlller extends Controller
+class TeamLinkPlanController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Customer\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-
     public function viewForm(Request $request)
     {
         $redirect = '';
@@ -21,6 +20,7 @@ class LoginController extends Controller
             if ($user->hasAnyRole('super_admin', 'admin')) {
                 return redirect(env('ADMIN_URL'));
             }
+
             return to_route('home');
         }
         if ($request->redirect) {
@@ -29,8 +29,10 @@ class LoginController extends Controller
         if (session()->has('redirect')) {
             $redirect = session()->get('redirect');
         }
+
         return view('auth.login', compact('redirect'));
     }
+
     public function postData(Request $request)
     {
         $request->validate([
@@ -39,10 +41,10 @@ class LoginController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
-        if (!$user->hasVerifiedEmail()) {
+        if (! $user->hasVerifiedEmail()) {
             return to_route('verification.notice')->withErrors('You have not verified your email. Please enter  your email to receive verification link.');
         }
-        if (!$user->is_active) {
+        if (! $user->is_active) {
             return back()->withErrors('You are not allowed to log in. Please contact support');
         }
 
@@ -58,14 +60,17 @@ class LoginController extends Controller
             if ($user->hasAnyRole('super_admin', 'admin')) {
                 return redirect(env('ADMIN_URL'));
             }
+
             return to_route('home');
         }
 
         return back()->withErrors('Invalid email and/or password');
     }
+
     public function logout()
     {
         auth()->logout();
+
         return to_route('login.get');
     }
 }

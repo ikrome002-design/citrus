@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Http\Controllers\Controller;
 use App\Shop\Addresses\Repositories\Interfaces\AddressRepositoryInterface;
-use App\Shop\Countries\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Shop\Cart\Requests\CartCheckoutRequest;
 use App\Shop\Carts\Repositories\Interfaces\CartRepositoryInterface;
 use App\Shop\Carts\Requests\PayPalCheckoutExecutionRequest;
 use App\Shop\Carts\Requests\StripeExecutionRequest;
+use App\Shop\Countries\Repositories\Interfaces\CountryRepositoryInterface;
 use App\Shop\Couriers\Repositories\Interfaces\CourierRepositoryInterface;
 use App\Shop\Customers\Customer;
 use App\Shop\Customers\Repositories\CustomerRepository;
@@ -21,13 +22,12 @@ use App\Shop\Products\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Shop\Products\Transformations\ProductTransformable;
 use App\Shop\Shipping\ShippingInterface;
 use Exception;
-use App\Http\Controllers\Controller;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use PayPal\Exception\PayPalConnectionException;
-use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
 {
@@ -78,7 +78,6 @@ class CheckoutController extends Controller
      */
     private $countryRepo;
 
-
     public function __construct(
         CartRepositoryInterface $cartRepository,
         CourierRepositoryInterface $courierRepository,
@@ -96,28 +95,35 @@ class CheckoutController extends Controller
         $this->productRepo = $productRepository;
         $this->orderRepo = $orderRepository;
         $this->countryRepo = $countryRepository;
-        $this->payPal = new PayPalExpressCheckoutRepository;
         $this->shippingRepo = $shipping;
+    }
+
+    private function payPal(): PayPalExpressCheckoutRepository
+    {
+        if (! $this->payPal) {
+            $this->payPal = new PayPalExpressCheckoutRepository;
+        }
+
+        return $this->payPal;
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
         $products = $this->cartRepo->getCartItems();
-        
+
         $customer = $request->user();
         $rates = null;
         $shipment_object_id = null;
 
         if (env('ACTIVATE_SHIPPING') == 1) {
             $shipment = $this->createShippingProcess($customer, $products);
-            if (!is_null($shipment)) {
+            if (! is_null($shipment)) {
                 $shipment_object_id = $shipment->object_id;
                 $rates = $shipment->rates;
             }
@@ -129,6 +135,7 @@ class CheckoutController extends Controller
         })->all();
 
         $billingAddress = $customer->addresses()->first();
+
         return view('front.checkout', [
             'customer' => $customer,
             'billingAddress' => $billingAddress,
@@ -141,18 +148,19 @@ class CheckoutController extends Controller
             'cartItems' => $this->cartRepo->getCartItemsTransformed(),
             'shipment_object_id' => $shipment_object_id,
             'countries' => $this->countryRepo->listCountries(),
-            'rates' => $rates
+            'rates' => $rates,
         ]);
     }
 
     /**
      * Checkout the items
      *
-     * @param CartCheckoutRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
+     *
      * @throws \App\Shop\Addresses\Exceptions\AddressNotFoundException
      * @throws \App\Shop\Customers\Exceptions\CustomerPaymentChargingErrorException
+     *
      * @codeCoverageIgnore
      */
     public function store(CartCheckoutRequest $request)
@@ -161,13 +169,13 @@ class CheckoutController extends Controller
 
         switch ($request->input('payment')) {
             case 'paypal':
-                return $this->payPal->process($shippingFee, $request);
+                return $this->payPal()->process($shippingFee, $request);
                 break;
             case 'stripe':
 
                 $details = [
                     'description' => 'Stripe payment',
-                    'metadata' => $this->cartRepo->getCartItems()->all()
+                    'metadata' => $this->cartRepo->getCartItems()->all(),
                 ];
 
                 $customer = $this->customerRepo->findCustomerById(auth()->id());
@@ -181,13 +189,12 @@ class CheckoutController extends Controller
     /**
      * Execute the PayPal payment
      *
-     * @param PayPalCheckoutExecutionRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function executePayPalPayment(PayPalCheckoutExecutionRequest $request)
     {
         try {
-            $this->payPal->execute($request);
+            $this->payPal()->execute($request);
             $this->cartRepo->clearCart();
 
             return redirect()->route('checkout.success');
@@ -199,7 +206,6 @@ class CheckoutController extends Controller
     }
 
     /**
-     * @param StripeExecutionRequest $request
      * @return \Stripe\Charge
      */
     public function charge(StripeExecutionRequest $request)
@@ -213,9 +219,11 @@ class CheckoutController extends Controller
                 Cart::total(),
                 Cart::tax()
             );
+
             return redirect()->route('checkout.success')->with('message', 'Stripe payment successful!');
         } catch (StripeChargingErrorException $e) {
             Log::info($e->getMessage());
+
             return redirect()->route('checkout.index')->with('error', 'There is a problem processing your request.');
         }
     }
@@ -223,7 +231,6 @@ class CheckoutController extends Controller
     /**
      * Cancel page
      *
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function cancel(Request $request)
@@ -242,9 +249,6 @@ class CheckoutController extends Controller
     }
 
     /**
-     * @param Customer $customer
-     * @param Collection $products
-     *
      * @return mixed
      */
     private function createShippingProcess(Customer $customer, Collection $products)
@@ -262,38 +266,31 @@ class CheckoutController extends Controller
         }
     }
 
-
     public function address_details($id)
     {
 
-        
-       $data = $this->addressRepo->findAddressById($id);
-       $data['customer'] = $this->customerRepo->findCustomerById($data->customer_id);
-       $data['cart_item']=array($this->cartRepo->getCartItems());
-       for($i=0;$i<count($data['cart_item']);$i++){
-            $j=0;
-            foreach($data['cart_item'][$i] as $value) {
-               # code...
-                $data['product_id']= $value->id;
-
+        $data = $this->addressRepo->findAddressById($id);
+        $data['customer'] = $this->customerRepo->findCustomerById($data->customer_id);
+        $data['cart_item'] = [$this->cartRepo->getCartItems()];
+        for ($i = 0; $i < count($data['cart_item']); $i++) {
+            $j = 0;
+            foreach ($data['cart_item'][$i] as $value) {
+                // code...
+                $data['product_id'] = $value->id;
 
                 /*$vendor_id[$j] =  DB::table('products')->where('id', $value->id)->get(['vendor_id']);
 
                 $vendor_postalCode[$j] =  DB::table('vendor_business_details')->where('vendor_id', $vendor_id[$j])->get(['postal_code']);*/
-                
-                $vendor_postalCode[$j]= DB::table('products')
-                  ->join('vendor_business_details', 'products.vendor_id', '=', 'vendor_business_details.id')
-                  ->select('vendor_business_details.id as vendor_id','vendor_business_details.postal_code as vendor_postalCode', 'products.vendor_id as product_vendor_id', 'products.flat_rate as product_flat_rate')
-                   ->where('products.id',  $value->id)->get();
 
-
-
-                 
+                $vendor_postalCode[$j] = DB::table('products')
+                    ->join('vendor_business_details', 'products.vendor_id', '=', 'vendor_business_details.id')
+                    ->select('vendor_business_details.id as vendor_id', 'vendor_business_details.postal_code as vendor_postalCode', 'products.vendor_id as product_vendor_id', 'products.flat_rate as product_flat_rate')
+                    ->where('products.id', $value->id)->get();
 
                 $j++;
-           }
-       }
-   
-       return response()->json(['data'=>$data,'postalCode'=>$vendor_postalCode]);
+            }
+        }
+
+        return response()->json(['data' => $data, 'postalCode' => $vendor_postalCode]);
     }
 }

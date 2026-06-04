@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Customer\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,6 +12,7 @@ class ForgotPasswordController extends Controller
     {
         return view('auth.forgot-password');
     }
+
     public function postData(Request $request)
     {
         $request->validate(['email' => 'required|email|exists:users,email']);

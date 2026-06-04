@@ -2,16 +2,14 @@
 
 namespace App\Shop\Vendors;
 
-
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laratrust\Traits\LaratrustUserTrait;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Notifications\Notifiable;
+use Laratrust\Traits\HasRolesAndPermissions;
 
 class Vendor extends Authenticatable
 {
-    use Notifiable, SoftDeletes, LaratrustUserTrait;
+    use Notifiable, SoftDeletes, HasRolesAndPermissions;
 
     /**
      * The attributes that are mass assignable.
@@ -50,7 +48,7 @@ class Vendor extends Authenticatable
         'verify_status',
         'created_at',
         'updated_at',
-        
+
     ];
 
     /**

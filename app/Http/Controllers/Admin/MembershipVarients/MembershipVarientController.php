@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Admin\MembershipVarients;
 
-use App\Shop\MembershipVarients\Repositories\Interfaces\MembershipVarientRepositoryInterface;
 use App\Http\Controllers\Controller;
-use App\Shop\MembershipVarients\Repositories\MembershipVarientRepository;
-use Illuminate\Http\Request;
+use App\Shop\MembershipVarients\Repositories\MembershipVarientRepositoryInterface;
 
 class MembershipVarientController extends Controller
 {
@@ -19,18 +17,14 @@ class MembershipVarientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $membershipvarientId
-     * @param int $membershipvarientId
      * @return \Illuminate\Http\Response
      */
     public function show(int $membershipvarientId)
     {
         $membershipvarient = $this->membershipvarientRepo->findMembershipvarientById($membershipvarientId);
-        
 
         return view('admin.provinces.show', [
             'membershipvarient' => $membershipvarient,
         ]);
     }
-
 }

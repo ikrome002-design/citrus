@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BranchPlan;
 use Illuminate\Http\Request;
 
-class BranchPlanControlller extends Controller
+class BranchPlanController extends Controller
 {
     /**
      * Display a listing of the resource.

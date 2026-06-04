@@ -11,16 +11,11 @@
 |
 */
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
 
 /**
  * Admin routes
  */
-
-
 Route::namespace('Admin')->name('admin.')->group(function () {
     Route::namespace('Auth')->group(function () {
         Route::get('/', 'LoginController@showLoginForm')->name('login.get');
@@ -48,7 +43,7 @@ Route::namespace('Admin')->name('admin.')->group(function () {
                 'update' => 'account.types.update',
                 'destroy' => 'account.types.destroy',
             ]);
-            Route::resource('backOfficePlans', 'backOfficePlanController')->names([
+            Route::resource('backOfficePlans', 'BackOfficePlanController')->names([
                 'index' => 'back.office.plans.index',
                 'create' => 'back.office.plans.create',
                 'store' => 'back.office.plans.store',
@@ -78,7 +73,7 @@ Route::namespace('Admin')->name('admin.')->group(function () {
         });
 
         Route::namespace('Subscriptions')->group(function () {
-            Route::resource('planSubscriptions', 'PlanSubcriptionController')->names([
+            Route::resource('planSubscriptions', 'PlanSubscriptionController')->names([
                 'index' => 'plan.subscriptions.index',
                 'create' => 'plan.subscriptions.create',
                 'store' => 'plan.subscriptions.store',
@@ -87,7 +82,7 @@ Route::namespace('Admin')->name('admin.')->group(function () {
                 'update' => 'plan.subscriptions.update',
                 'destroy' => 'plan.subscriptions.destroy',
             ]);
-            Route::resource('backOfficeSubscriptions', 'backOfficeSubscriptionController')->names([
+            Route::resource('backOfficeSubscriptions', 'BackOfficeSubscriptionController')->names([
                 'index' => 'back.office.subscriptions.index',
                 'create' => 'back.office.subscriptions.create',
                 'store' => 'back.office.plansubscriptions.store',
@@ -96,7 +91,7 @@ Route::namespace('Admin')->name('admin.')->group(function () {
                 'update' => 'back.office.subscriptions.update',
                 'destroy' => 'back.office.subscriptions.destroy',
             ]);
-            Route::resource('branchSubscriptions', 'BranchSubscriptionPlanController')->names([
+            Route::resource('branchSubscriptions', 'BranchSubscriptionController')->names([
                 'index' => 'branch.subscriptions.index',
                 'create' => 'branch.subscriptions.create',
                 'store' => 'branch.subscriptions.store',
@@ -149,15 +144,12 @@ Route::namespace('Admin')->name('admin.')->group(function () {
             Route::get('order/transaction-History', 'OrderController@transactionHistory')->name('orders.transaction-History');
             Route::get('orders/transaction-Historyy/{id}', 'OrderController@transactionHistoryy')->name('orders.transaction-Historyy');
 
-
             Route::get('orders/transaction_reportt/{id}/release', 'OrderController@releaseAmount')->name('release_amount');
         });
         Route::resource('product_reviews', 'ProductRatings\ProductRatingController');
         Route::namespace('Categories')->group(function () {
             Route::resource('categories', 'CategoryController');
             Route::get('remove-image-category', 'CategoryController@removeImage')->name('category.remove.image');
-
-
 
             Route::get('categories/type/{id}', 'CategoryController@type')->name('categories.type');
             Route::get('business_type/create', 'CategoryController@business_type_create')->name('business_type.create');
@@ -173,7 +165,6 @@ Route::namespace('Admin')->name('admin.')->group(function () {
         Route::resource('attributes.values', 'Attributes\AttributeValueController');
         Route::resource('brands', 'Brands\BrandController');
         Route::resource('footers', 'Footers\FooterController');
-
 
         // Route::resource('productratings', 'ProductRatings\ProductRatingController');
         Route::resource('product_reviews', 'ProductRatings\ProductRatingController');
@@ -219,7 +210,6 @@ Route::namespace('Admin')->name('admin.')->group(function () {
         Route::get('/staffVendorShow/{id}', 'VendorController@staffVendorShow')->name('staff.staffVendorShow');
         Route::post('/staff/updateStaffVendorList', 'VendorController@updateStaffVendorList')->name('staff.updateStaffVendorList');
 
-
         Route::resource('vendors', 'VendorController');
         Route::get('merchant/list', 'VendorController@index')->name('merchant.list');
         Route::get('merchant/show/{id}', 'VendorController@show')->name('merchant.show');
@@ -255,7 +245,7 @@ Route::namespace('Admin')->name('admin.')->group(function () {
                 Route::resource('customers.addresses', 'CustomerAddressController');
             });
 
-            Route::namespace('Subscription plan')->group(function () {
+            Route::namespace('Subscriptions')->group(function () {
                 Route::resource('subscription', 'SubscriptionController');
             });
 
@@ -269,7 +259,6 @@ Route::namespace('Admin')->name('admin.')->group(function () {
             Route::post('vendors/updatevendorlist', 'VendorController@updatevendorlist')->name('vendors.updatevendorlist');
             Route::post('vendors/create1', 'VendorController@create1')->name('vendors.create1');
             Route::post('vendors/chooseplan', 'VendorController@chooseplan')->name('vendors.chooseplan');
-
 
             Route::get('logout', 'LoginController@logout')->name('logout');
             Route::get('staff/logout', 'LoginController@staff_logout')->name('staff.logout');
